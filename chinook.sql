@@ -33,3 +33,18 @@ JOIN Invoice
 ON Invoice.CustomerId = Customer.CustomerId
 JOIN Employee
 ON Customer.SupportRepId = Employee.EmployeeId;
+
+-- 7 invoice_totals.sql: Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
+SELECT Invoice.Total as "Invoice Total", Customer.FirstName as "Customer First Name", Customer.LastName as "Customer Last Name", Invoice.BillingCountry, Employee.FirstName as "Agent First Name", Employee.LastName as "Agent Last Name"
+FROM Customer
+JOIN Invoice
+ON Customer.CustomerId = Invoice.CustomerId
+JOIN Employee
+ON Customer.SupportRepId = Employee.EmployeeId
+ORDER BY Employee.LastName;
+
+-- 8 total_invoices_{year}.sql: How many Invoices were there in 2009 and 2011?
+-- SELECT * FROM TableName where DATEPART(yy, YourDateColumn) = 1996 --For Year
+SELECT COUNT() as "total Invoices 2009 and 2011"
+FROM Invoice
+WHERE strftime('%Y', Invoice.invoiceDate) = "2009" OR  strftime('%Y', Invoice.invoiceDate) = "2011";
